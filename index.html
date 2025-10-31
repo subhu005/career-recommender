@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerPath Pro | Find Your Dream Career</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #8a2be2;
+            --primary-light: #9d4edd;
+            --primary-dark: #6a1bb0;
+            --secondary: #f8f9fa;
+            --accent: #e2d1f9;
+            --text: #333;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 4px 15px rgba(138, 43, 226, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--secondary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 2rem 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.2);
+        }
+
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            font-size: 1.8rem;
+        }
+
+        /* Interest Selection */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .interest-item {
+            background: var(--accent);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .interest-item:hover {
+            background: var(--primary-light);
+            color: var(--white);
+            transform: scale(1.05);
+        }
+
+        .interest-item.selected {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary-dark);
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(138, 43, 226, 0.3);
+        }
+
+        /* Skill Level */
+        .skill-levels {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-option {
+            flex: 1;
+            min-width: 120px;
+            background: var(--accent);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .skill-option:hover {
+            background: var(--primary-light);
+            color: var(--white);
+        }
+
+        .skill-option.selected {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary-dark);
+            box-shadow: 0 4px 10px rgba(138, 43, 226, 0.3);
+        }
+
+        /* Education Level */
+        .education-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .education-option {
+            flex: 1;
+            min-width: 140px;
+            background: var(--accent);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .education-option:hover {
+            background: var(--primary-light);
+            color: var(--white);
+        }
+
+        .education-option.selected {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary-dark);
+            box-shadow: 0 4px 10px rgba(138, 43, 226, 0.3);
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-light);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        /* Results Section */
+        .results-container {
+            display: none;
+        }
+
+        .career-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 5px solid var(--primary);
+        }
+
+        .career-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.2);
+        }
+
+        .career-title {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .career-description {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .career-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--accent);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .match-percentage {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        /* Loading Animation */
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loader i {
+            font-size: 3rem;
+            color: var(--primary);
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            color: var(--text-light);
+            border-top: 1px solid var(--accent);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .interests-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            
+            .skill-option, .education-option {
+                min-width: 100%;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-rocket"></i>
+                <h1>CareerPath Pro</h1>
+            </div>
+            <p class="tagline">Discover your ideal career path based on your interests, skills, and education level</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="app-container">
+            <!-- User Input Section -->
+            <div class="card" id="input-section">
+                <h2 class="section-title"><i class="fas fa-user-edit"></i> Tell Us About Yourself</h2>
+                
+                <div class="form-group">
+                    <h3>Select Your Interests</h3>
+                    <div class="interests-grid" id="interests-container">
+                        <!-- Interests will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <h3>Your Skill Level</h3>
+                    <div class="skill-levels" id="skill-levels">
+                        <div class="skill-option" data-value="beginner">Beginner</div>
+                        <div class="skill-option" data-value="intermediate">Intermediate</div>
+                        <div class="skill-option" data-value="advanced">Advanced</div>
+                        <div class="skill-option" data-value="expert">Expert</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <h3>Education Level</h3>
+                    <div class="education-options" id="education-levels">
+                        <div class="education-option" data-value="highschool">High School</div>
+                        <div class="education-option" data-value="associate">Associate Degree</div>
+                        <div class="education-option" data-value="bachelor">Bachelor's Degree</div>
+                        <div class="education-option" data-value="master">Master's Degree</div>
+                        <div class="education-option" data-value="phd">PhD</div>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn btn-primary" id="recommend-btn">
+                        <i class="fas fa-magic"></i> Get Career Recommendations
+                    </button>
+                    <button class="btn btn-secondary" id="reset-btn">
+                        <i class="fas fa-redo"></i> Reset Selections
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Loading Section -->
+            <div class="loader" id="loader">
+                <i class="fas fa-spinner"></i>
+                <p>Analyzing your profile and finding the best career matches...</p>
+            </div>
+            
+            <!-- Results Section -->
+            <div class="results-container" id="results-section">
+                <div class="card">
+                    <h2 class="section-title"><i class="fas fa-chart-line"></i> Your Career Matches</h2>
+                    <p>Based on your selections, here are the careers that best match your profile:</p>
+                    
+                    <div id="careers-container">
+                        <!-- Career cards will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="btn btn-secondary" id="back-btn">
+                            <i class="fas fa-arrow-left"></i> Back to Input
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>CareerPath Pro &copy; 2023 | Find Your Dream Career</p>
+        </div>
+    </footer>
+
+    <script>
+        // Career data
+        const careers = [
+            {
+                id: 1,
+                title: "Software Developer",
+                description: "Design, develop, and test software applications for various platforms.",
+                interests: ["technology", "programming", "problem-solving"],
+                skillLevel: ["intermediate", "advanced", "expert"],
+                education: ["bachelor", "master", "phd"],
+                salary: "$70,000 - $120,000",
+                growth: "22% (Much faster than average)",
+                demand: "High"
+            },
+            {
+                id: 2,
+                title: "Data Scientist",
+                description: "Analyze and interpret complex data to help organizations make better decisions.",
+                interests: ["analytics", "technology", "mathematics"],
+                skillLevel: ["advanced", "expert"],
+                education: ["master", "phd"],
+                salary: "$85,000 - $150,000",
+                growth: "31% (Much faster than average)",
+                demand: "Very High"
+            },
+            {
+                id: 3,
+                title: "Graphic Designer",
+                description: "Create visual concepts to communicate ideas that inspire, inform, or captivate consumers.",
+                interests: ["design", "creativity", "art"],
+                skillLevel: ["beginner", "intermediate", "advanced", "expert"],
+                education: ["associate", "bachelor"],
+                salary: "$45,000 - $85,000",
+                growth: "3% (As fast as average)",
+                demand: "Moderate"
+            },
+            {
+                id: 4,
+                title: "Digital Marketing Specialist",
+                description: "Develop and implement strategies to promote brands and products online.",
+                interests: ["marketing", "social-media", "analytics"],
+                skillLevel: ["beginner", "intermediate", "advanced"],
+                education: ["bachelor"],
+                salary: "$50,000 - $90,000",
+                growth: "10% (Faster than average)",
+                demand: "High"
+            },
+            {
+                id: 5,
+                title: "Healthcare Administrator",
+                description: "Manage operations and services in healthcare facilities.",
+                interests: ["healthcare", "management", "helping-others"],
+                skillLevel: ["intermediate", "advanced"],
+                education: ["bachelor", "master"],
+                salary: "$60,000 - $110,000",
+                growth: "32% (Much faster than average)",
+                demand: "High"
+            },
+            {
+                id: 6,
+                title: "Financial Analyst",
+                description: "Provide guidance to businesses and individuals making investment decisions.",
+                interests: ["finance", "analytics", "mathematics"],
+                skillLevel: ["intermediate", "advanced", "expert"],
+                education: ["bachelor", "master"],
+                salary: "$60,000 - $120,000",
+                growth: "6% (As fast as average)",
+                demand: "Moderate"
+            },
+            {
+                id: 7,
+                title: "UX/UI Designer",
+                description: "Create user-friendly interfaces that enable users to understand how to use complex technical products.",
+                interests: ["design", "technology", "psychology"],
+                skillLevel: ["intermediate", "advanced", "expert"],
+                education: ["bachelor"],
+                salary: "$65,000 - $110,000",
+                growth: "13% (Faster than average)",
+                demand: "High"
+            },
+            {
+                id: 8,
+                title: "Environmental Scientist",
+                description: "Use knowledge of natural sciences to protect the environment and human health.",
+                interests: ["science", "environment", "research"],
+                skillLevel: ["intermediate", "advanced"],
+                education: ["bachelor", "master"],
+                salary: "$50,000 - $100,000",
+                growth: "8% (As fast as average)",
+                demand: "Moderate"
+            }
+        ];
+
+        // Interests data
+        const interests = [
+            { id: "technology", name: "Technology" },
+            { id: "programming", name: "Programming" },
+            { id: "design", name: "Design" },
+            { id: "art", name: "Art" },
+            { id: "music", name: "Music" },
+            { id: "writing", name: "Writing" },
+            { id: "science", name: "Science" },
+            { id: "mathematics", name: "Mathematics" },
+            { id: "analytics", name: "Analytics" },
+            { id: "business", name: "Business" },
+            { id: "finance", name: "Finance" },
+            { id: "marketing", name: "Marketing" },
+            { id: "social-media", name: "Social Media" },
+            { id: "healthcare", name: "Healthcare" },
+            { id: "fitness", name: "Fitness" },
+            { id: "education", name: "Education" },
+            { id: "environment", name: "Environment" },
+            { id: "psychology", name: "Psychology" },
+            { id: "research", name: "Research" },
+            { id: "management", name: "Management" },
+            { id: "helping-others", name: "Helping Others" },
+            { id: "problem-solving", name: "Problem Solving" },
+            { id: "creativity", name: "Creativity" }
+        ];
+
+        // DOM Elements
+        const interestsContainer = document.getElementById('interests-container');
+        const skillLevels = document.querySelectorAll('.skill-option');
+        const educationLevels = document.querySelectorAll('.education-option');
+        const recommendBtn = document.getElementById('recommend-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const backBtn = document.getElementById('back-btn');
+        const inputSection = document.getElementById('input-section');
+        const loader = document.getElementById('loader');
+        const resultsSection = document.getElementById('results-section');
+        const careersContainer = document.getElementById('careers-container');
+
+        // User selections
+        let selectedInterests = [];
+        let selectedSkillLevel = null;
+        let selectedEducationLevel = null;
+
+        // Initialize the app
+        function initApp() {
+            // Populate interests
+            interests.forEach(interest => {
+                const interestElement = document.createElement('div');
+                interestElement.className = 'interest-item';
+                interestElement.textContent = interest.name;
+                interestElement.dataset.id = interest.id;
+                interestElement.addEventListener('click', () => toggleInterest(interest.id));
+                interestsContainer.appendChild(interestElement);
+            });
+
+            // Add event listeners to skill levels
+            skillLevels.forEach(level => {
+                level.addEventListener('click', () => selectSkillLevel(level.dataset.value));
+            });
+
+            // Add event listeners to education levels
+            educationLevels.forEach(level => {
+                level.addEventListener('click', () => selectEducationLevel(level.dataset.value));
+            });
+
+            // Add event listeners to buttons
+            recommendBtn.addEventListener('click', generateRecommendations);
+            resetBtn.addEventListener('click', resetSelections);
+            backBtn.addEventListener('click', showInputSection);
+        }
+
+        // Toggle interest selection
+        function toggleInterest(interestId) {
+            const interestElement = document.querySelector(`.interest-item[data-id="${interestId}"]`);
+            
+            if (selectedInterests.includes(interestId)) {
+                selectedInterests = selectedInterests.filter(id => id !== interestId);
+                interestElement.classList.remove('selected');
+            } else {
+                selectedInterests.push(interestId);
+                interestElement.classList.add('selected');
+            }
+        }
+
+        // Select skill level
+        function selectSkillLevel(level) {
+            skillLevels.forEach(el => el.classList.remove('selected'));
+            document.querySelector(`.skill-option[data-value="${level}"]`).classList.add('selected');
+            selectedSkillLevel = level;
+        }
+
+        // Select education level
+        function selectEducationLevel(level) {
+            educationLevels.forEach(el => el.classList.remove('selected'));
+            document.querySelector(`.education-option[data-value="${level}"]`).classList.add('selected');
+            selectedEducationLevel = level;
+        }
+
+        // Generate career recommendations
+        function generateRecommendations() {
+            // Validate selections
+            if (selectedInterests.length === 0 || !selectedSkillLevel || !selectedEducationLevel) {
+                alert('Please make selections in all categories before generating recommendations.');
+                return;
+            }
+
+            // Show loading animation
+            showLoader();
+
+            // Simulate processing time
+            setTimeout(() => {
+                // Calculate matches
+                const matches = calculateMatches();
+                
+                // Display results
+                displayResults(matches);
+                
+                // Show results section
+                showResultsSection();
+            }, 1500);
+        }
+
+        // Calculate career matches based on user selections
+        function calculateMatches() {
+            const matches = careers.map(career => {
+                let score = 0;
+                
+                // Interest match (40% of score)
+                const interestMatches = career.interests.filter(interest => 
+                    selectedInterests.includes(interest)
+                ).length;
+                score += (interestMatches / career.interests.length) * 40;
+                
+                // Skill level match (30% of score)
+                if (career.skillLevel.includes(selectedSkillLevel)) {
+                    const skillIndex = career.skillLevel.indexOf(selectedSkillLevel);
+                    score += (1 - skillIndex * 0.1) * 30;
+                }
+                
+                // Education level match (30% of score)
+                const educationLevels = ['highschool', 'associate', 'bachelor', 'master', 'phd'];
+                const selectedEduIndex = educationLevels.indexOf(selectedEducationLevel);
+                const careerMinEduIndex = Math.min(...career.education.map(edu => educationLevels.indexOf(edu)));
+                
+                if (selectedEduIndex >= careerMinEduIndex) {
+                    score += 30;
+                } else {
+                    score += (selectedEduIndex / careerMinEduIndex) * 30;
+                }
+                
+                return {
+                    ...career,
+                    matchScore: Math.min(Math.round(score), 100)
+                };
+            });
+            
+            // Sort by match score (descending)
+            return matches.sort((a, b) => b.matchScore - a.matchScore).filter(career => career.matchScore > 40);
+        }
+
+        // Display career recommendations
+        function displayResults(matches) {
+            careersContainer.innerHTML = '';
+            
+            if (matches.length === 0) {
+                careersContainer.innerHTML = `
+                    <div class="career-card">
+                        <h3 class="career-title">No Strong Matches Found</h3>
+                        <p class="career-description">Try adjusting your selections to find better career matches.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            matches.forEach(career => {
+                const careerCard = document.createElement('div');
+                careerCard.className = 'career-card';
+                
+                careerCard.innerHTML = `
+                    <h3 class="career-title">${career.title}</h3>
+                    <p class="career-description">${career.description}</p>
+                    <div class="career-details">
+                        <div class="detail-item">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span>Salary: ${career.salary}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Growth: ${career.growth}</span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-bullseye"></i>
+                            <span>Demand: ${career.demand}</span>
+                        </div>
+                    </div>
+                    <div class="match-percentage">${career.matchScore}% Match</div>
+                `;
+                
+                careersContainer.appendChild(careerCard);
+            });
+        }
+
+        // Reset all selections
+        function resetSelections() {
+            selectedInterests = [];
+            selectedSkillLevel = null;
+            selectedEducationLevel = null;
+            
+            document.querySelectorAll('.interest-item').forEach(el => el.classList.remove('selected'));
+            document.querySelectorAll('.skill-option').forEach(el => el.classList.remove('selected'));
+            document.querySelectorAll('.education-option').forEach(el => el.classList.remove('selected'));
+        }
+
+        // Show loading animation
+        function showLoader() {
+            inputSection.style.display = 'none';
+            resultsSection.style.display = 'none';
+            loader.style.display = 'block';
+        }
+
+        // Show results section
+        function showResultsSection() {
+            loader.style.display = 'none';
+            resultsSection.style.display = 'block';
+        }
+
+        // Show input section
+        function showInputSection() {
+            resultsSection.style.display = 'none';
+            inputSection.style.display = 'block';
+        }
+
+        // Initialize the app when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
